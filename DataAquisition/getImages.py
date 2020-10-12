@@ -1,6 +1,8 @@
 import image_slicer
 import ee
 import os
+import glob
+import cv2
 
 def get_region(geom):
     """Get the region of a given geometry, needed for exporting tasks.
@@ -70,7 +72,19 @@ def downloadFile(url):
    os.system('mkdir files')
    os.system('unzip files:getpixels -d ./files')
    print('Extraced!')
-
+def imageResized():
+    image_slicer.slice('./files/dresden.B5.tif' , 10) # We can change the name of the images 
+    listOfFiles = glob.glob('./files/*.png')
+    imageNum = 0
+    for i in listOfFiles:
+        img = cv2.imread(i,cv2.IMREAD_UNCHANGED) 
+        dim = (60,60)
+        resized = cv2.resize(img,dim,interpolation = cv2.INTER_AREA)
+        writenBack = cv2.imwrite('./resized/' + str(imageNum) + '.png', resized)
+        if writenBack:
+            print("saved " + str(imageNum))
+        imageNum = imageNum +1
+    
 
 
 
@@ -91,7 +105,7 @@ composite_dresden = obtain_image_landsat_composite(collection_dresden, time_rang
 url_dresden = get_url('dresden', composite_dresden, 30, region_dresden)
 print(url_dresden)
 
-downloadFile(url_dresden)
-
+#downloadFile(url_dresden)
+imageResized()
 
 
