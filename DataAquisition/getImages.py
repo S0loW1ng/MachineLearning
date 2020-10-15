@@ -78,7 +78,7 @@ def imageResized():
     imageNum = 0
     for i in listOfFiles:
         img = cv2.imread(i,cv2.IMREAD_UNCHANGED) 
-        dim = (60,60)
+        dim = (64,64)
         resized = cv2.resize(img,dim,interpolation = cv2.INTER_AREA)
         writenBack = cv2.imwrite('./resized/' + str(imageNum) + '.png', resized)
         if writenBack:
@@ -105,7 +105,7 @@ composite_dresden = obtain_image_landsat_composite(collection_dresden, time_rang
 url_dresden = get_url('dresden', composite_dresden, 30, region_dresden)
 print(url_dresden)
 
-#downloadFile(url_dresden)
+downloadFile(url_dresden)
 imageResized()
 
 
