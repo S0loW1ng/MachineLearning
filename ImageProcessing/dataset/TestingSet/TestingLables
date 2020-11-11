@@ -1,4 +1,6 @@
 Testing dataset labels:
+
+nonflat images
 1. notflat106.png
 2. notflat115.png
 3. notflat124.png
@@ -29,3 +31,9 @@ Testing dataset labels:
 28. notflat75.png
 29. notflat84.png
 30. notflat93.png
+
+flat lables
+31. flat0.png
+32. flat107.png
+33. flat116.png
+34. 
