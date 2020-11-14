@@ -12,8 +12,8 @@ def imageList(path):
     return images
 
 def vectorizeImg(img):
-    flatten = np.asmatrix(img).flatten()
-    flatten = np.divide(flatten,255.0)
+    flatten = np.asmatrix(img).flatten() #converts to a matrix then flattens to vector
+    flatten = np.divide(flatten,255.0) # normalizes the elements from 0-255 to 0-1
     return np.asarray(flatten)[0]
 
 def toVectors(imgList):
