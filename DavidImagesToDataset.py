@@ -40,12 +40,11 @@ numberOfNotFlat = np.size(vectorInput_notflat)/np.size(vectorInput_notflat[1]) #
 
 df_notflat = pd.DataFrame(vectorInput_notflat) #converts the list into a dataframe
 
-df_notflat.insert(0, "flat", [0] * int(numberOfNotflat), True) #add new column to data fram to denote flat vs nonflat
+df_notflat.insert(0, "flat", [0] * int(numberOfNotFlat), True) #add new column to data fram to denote flat vs nonflat
 
 #Flat images
 
 numberOfFlat = np.size(vectorInput_flat)/np.size(vectorInput_flat[1]) #number of notflat images
-print(numberOfFlat)
 
 df_flat = pd.DataFrame(vectorInput_flat) #converts the list into a dataframe
 
