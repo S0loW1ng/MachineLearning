@@ -35,11 +35,11 @@ def vectorizeImg(img):
 def toVectors(imgList):
     return [vectorizeImg(img) for img in imgList]
 
-path_notflat = "C:/Users/andy9/Documents/GitHub/Project_MachineLearning/ImageProcessing/dataset/flat/*.png" #Change this to the files we need and use forward slashes
+path_notflat = "C:/Users/andy9/Documents/GitHub/Project_MachineLearning/ImageProcessing/dataset/notflat/*.png" #Change this to the files we need and use forward slashes
 listOfImages = imageList(path_notflat)
 vectorInput_notflat = toVectors(listOfImages)
 
-path_flat = "C:/Users/andy9/Documents/GitHub/Project_MachineLearning/ImageProcessing/dataset/notflat/*.png" #Change this to the files we need and use forward slashes
+path_flat = "C:/Users/andy9/Documents/GitHub/Project_MachineLearning/ImageProcessing/dataset/flat/*.png" #Change this to the files we need and use forward slashes
 listOfImages = imageList(path_flat)
 vectorInput_flat = toVectors(listOfImages)
 
@@ -72,12 +72,14 @@ X = dataset.drop('flat', axis=1) #these are all of our input images
 Y = dataset['flat'] #these are all of the flat vs nonflat labels, flat = 1, nonflat = 0
 
 # PCA
+# PCA uses all of the data points and relates them to get the basis vectors(c1,c2,...,cn), we have 960 images, and...
+# 4096 pixels, (diff dimensions)
 
-pca = PCA(n_components=4096)
+pca = PCA(n_components=300)
 X_pca = pca.fit_transform(X)
 plt.plot(np.cumsum(pca.explained_variance_ratio_))
 plt.show()
-X_train, X_test, y_train, y_test = train_test_split(X_pca, Y, test_size=0.2,random_state=20) #create a training and testing dataset
+X_train, X_test, y_train, y_test = train_test_split(X_pca, Y, test_size=0.2,random_state=2) #create a training and testing dataset
 
 # Import dataset (Vectorized images) as pandas dataframe?
 
@@ -90,8 +92,8 @@ X_train, X_test, y_train, y_test = train_test_split(X_pca, Y, test_size=0.2,rand
 # Y is the label
 
 #X_train, X_test, y_train, y_test = train_test_split(dataset, dataset.target, test_size=.2, random_state=0)
-model = MLPClassifier(hidden_layer_sizes=(1000,100,100,10), activation='relu', solver='adam',
-                      max_iter=1000)  # 10,10,10 can play with these and iterations, 3 layers of 10 nodes each)
+model = MLPClassifier(hidden_layer_sizes=(20,20,20), activation='relu', solver='adam',
+                      max_iter=10000, random_state=0)  # 10,10,10 can play with these and iterations, 3 layers of 10 nodes each)
 
 model.fit(X_train, y_train)
 ypred = model.predict(X_test)
