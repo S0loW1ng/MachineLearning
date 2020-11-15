@@ -51,6 +51,9 @@ df_flat = pd.DataFrame(vectorInput_flat) #converts the list into a dataframe
 #add first column to data fram to denote flat vs nonflat
 df_flat.insert(0, "flat", [1] * int(numberOfFlat), True)
 
+excess = list(range(int(numberOfNotFlat), int(numberOfFlat))) #normalizing the number of flat vs nonflat images
+df_flat.drop(excess, axis = 0)
+
 # Combine flat and nonflat dataframes
 
 frames = [df_notflat, df_flat]
