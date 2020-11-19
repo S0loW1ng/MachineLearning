@@ -1,5 +1,3 @@
-
-
 from PIL import ImageOps
 from PIL import Image
 import numpy as np
@@ -10,13 +8,18 @@ import cv2 as cv
 import glob
 import pandas as pd
 from sklearn.model_selection import train_test_split
-
+#added by Enrique
+def canyEdges(img):
+    image = cv.imread(img,0)
+    edges = cv.Canny(image,100,200)
+    return edges
 
 def imageList(path):
     addresses = glob.glob(path)
     images = []
     for path in addresses:
         img = Image.open(path).convert('L')
+        img = canyEdges(img) #added by Enrique
         images.append(img)
     return images
 
