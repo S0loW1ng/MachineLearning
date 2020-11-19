@@ -4,17 +4,24 @@ from PIL import ImageOps
 from PIL import Image
 import numpy as np
 from PIL import Image
+import cv2 as cv
 
 #added by David
 import glob
 import pandas as pd
 from sklearn.model_selection import train_test_split
+#added by Enrique
+def canyEdges(img):
+    image = cv.imread(img,0)
+    edges = cv.Canny(image,100,200)
+    return edges
 
 def imageList(path):
     addresses = glob.glob(path)
     images = []
     for path in addresses:
         img = Image.open(path).convert('L')
+        img = canyEdges(img) #added by Enrique
         images.append(img)
     return images
 
@@ -25,6 +32,8 @@ def vectorizeImg(img):
 
 def toVectors(imgList):
     return [vectorizeImg(img) for img in imgList]
+
+
 
 path_notflat = "C:/Users/jojo5/Documents/GitHub/MachineLearning/ImageProcessing/dataset/notflat/*.png" #Change this to the files we need and use forward slashes
 listOfImages = imageList(path_notflat)
